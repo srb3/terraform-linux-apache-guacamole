@@ -30,7 +30,7 @@ module "guacd_build" {
 
 module "habitat_install" {
   source            = "devoptimist/habitat/chef"
-  version           = "0.0.4"
+  version           = "0.0.5"
   ips               = var.ips
   instance_count    = local.instance_count
   user_name         = var.user_name
