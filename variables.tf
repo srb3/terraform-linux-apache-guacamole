@@ -86,6 +86,12 @@ variable "effortless_guacd_splay" {
   default     = 30
 }
 
+variable "guacamole_webserver_channel" {
+  description = "The builder channel to pull the guacamole-webserver habitat package from"
+  type        = string
+  default     = "stable"
+}
+
 variable "guacamole_client_channel" {
   description = "The builder channel to pull the guacamole-client habitat package from"
   type        = string
@@ -106,6 +112,24 @@ variable "guacamole_client_tomcat_port" {
 
 variable "guacamole_client_tomcat_listen_address" {
   description = "The adress for tomcat to listen on, defaults to the ip of the server"
+  type        = string
+  default     = ""
+}
+
+variable "guacamole_webserver_ssl_crt" {
+  description = "An ssl certificate to use with the webproxy server"
+  type        = string
+  default     = ""
+}
+
+variable "guacamole_webserver_ssl_key" {
+  description = "An ssl key to use with the webproxy server"
+  type        = string
+  default     = ""
+}
+
+variable "guacamole_webserver_hostname" {
+  description = "An ssl key to use with the webproxy server"
   type        = string
   default     = ""
 }

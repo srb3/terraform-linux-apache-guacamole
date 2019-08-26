@@ -1,12 +1,27 @@
 locals {
   instance_count = var.instance_count # length(var.ips)
-  tomcat_opts = var.guacamole_client_tomcat_listen_address != "" ? {"port" = var.guacamole_client_tomcat_port, "listen_address" = var.guacamole_client_tomcat_listen_address} : {"port" = var.guacamole_client_tomcat_port }
   services = {
-    "devoptimist/guacamole-client" = {
-      "channel" = var.guacamole_client_channel,
+   "devoptimist/guacamole-client" = {
+      "channel"          = var.guacamole_client_channel,
+      "binding_mode"     = "relaxed"
+      "bind"             = "webproxy:guacamole-webserver.default"
       "user_toml_config" = {
         "users"  = var.guacamole_client_connection_config,
-        "tomcat" = local.tomcat_opts
+        "tomcat" = {
+          "port"           = var.guacamole_client_tomcat_port,
+          "listen_address" = var.guacamole_client_tomcat_listen_address
+        }
+      }
+    },
+    "devoptimist/guacamole-webserver" = {
+      "channel"          = var.guacamole_webserver_channel,
+      "bind"             = "guacamole:guacamole-client.default"
+      "user_toml_config" = {
+        "server_hostname" = var.guacamole_webserver_hostname,
+        "ssl" = {
+          "crt" = var.guacamole_webserver_ssl_crt
+          "key" = var.guacamole_webserver_ssl_key
+        }
       }
     }
   }
