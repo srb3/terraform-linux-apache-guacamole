@@ -1,7 +1,7 @@
 locals {
   instance_count = var.instance_count # length(var.ips)
   services = {
-   "devoptimist/guacamole-client" = {
+   "srb3/guacamole-client" = {
       "channel"          = var.guacamole_client_channel,
       "binding_mode"     = "relaxed"
       "bind"             = "webproxy:guacamole-webserver.default"
@@ -13,7 +13,7 @@ locals {
         }
       }
     },
-    "devoptimist/guacamole-webserver" = {
+    "srb3/guacamole-webserver" = {
       "channel"          = var.guacamole_webserver_channel,
       "bind"             = "guacamole:guacamole-client.default"
       "user_toml_config" = {
@@ -31,8 +31,8 @@ locals {
 # so calling the cookbook through policyfile bootstrap 
 
 module "guacd_build" {
-  source           = "devoptimist/policyfile/chef"
-  version          = "0.0.6"
+  source           = "srb3/policyfile/chef"
+  version          = "0.13.0"
   ips              = var.ips
   instance_count   = local.instance_count
   cookbooks        = var.cookbooks
@@ -44,8 +44,8 @@ module "guacd_build" {
 }
 
 module "habitat_install" {
-  source            = "devoptimist/habitat/chef"
-  version           = "0.0.5"
+  source            = "srb3/habitat/chef"
+  version           = "0.13.0"
   ips               = var.ips
   instance_count    = local.instance_count
   user_name         = var.user_name
@@ -60,7 +60,7 @@ module "habitat_install" {
 ## the following was removed from the services list due to 
 # issues with getting chef effortless packages to run
 #  services = {
-#    "devoptimist/effortless-guacd" = {
+#    "srb3/effortless-guacd" = {
 #      "channel" = var.effortless_guacd_channel,
 #      "user_toml_config" = {
 #        "interval" = var.effortless_guacd_interval,

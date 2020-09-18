@@ -50,7 +50,7 @@ variable "user_private_keys" {
 variable "cookbooks" {
   description = "the cookbooks used to deploy chef automate"
   default = {
-    "guacd" = "github: 'devoptimist/cookbook-guacd', tag: 'v1.0.0-20190825143757'",
+    "guacd" = "github: 'srb3/cookbook-guacd', tag: 'v1.0.0-20190825143757'",
   }
 }
 
